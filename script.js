@@ -9,7 +9,7 @@ const images = [
 ];
 
 
-const btn = document.getElementById(“download-images-button”).addEventListener(‘click’,function(){
+const btn = document.getElementById("download-images-button").addEventListener('click',function(){
 let promiseall=images.map((img)=>{
 return new Promise((res,rej)=>{
 fetch(img.url)
@@ -20,15 +20,15 @@ return res.blob();
 let imgURL=URL.createObjectURL(blob);
 res(imgURL);
 })
-.catch(()=>rej("Failed to load image's URL: ${img.url}"));
+.catch(()=>rej(`Failed to load image's URL: ${img.url}`));
 });
 
 });
 console.log(promiseall);
 Promise.all(promiseall).then((imgURLs)=>{
-output.innerHTML=``
+output.innerHTML=''
 imgURLs.forEach((imgis)=>{
-output.innerHTML+='<img src=${imgis}>';
+output.appendChild(`<img src=${imgis}>`);
 });
 }).catch((error)=>{
 console.error(error);
